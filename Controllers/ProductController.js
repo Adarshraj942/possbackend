@@ -1,5 +1,5 @@
 import productModel from "../Models/productModel.js"
-
+import nodemailer from "nodemailer"
 export const addProduct=async(req,res)=>{
   console.log("haiii");
   try {
@@ -67,11 +67,23 @@ export const editProduct=async(req,res)=>{
 
 
 export const allProducts=async(req,res)=>{
+
+   
+ 
+  
     try {
-       const data=await productModel.find()
-       const beta= data.slice(0,15)
-       console.log(beta.length);
-       res.status(200).json(beta)
+      console.log(req.body);
+      const {typeCatagoryy,petCategoryy}=req.body
+      console.log(typeCatagoryy);
+       const data=await productModel.aggregate([ {$match:{ typeCatagory: typeCatagoryy,petCategory:petCategoryy}} ])
+      
+      //  const zeta=data.filter((e)=>{
+      //   console.log(e.typeCatagory);
+      //    //return e.typeCatagory===typeCatagoryy 
+         
+      //  })
+   console.log(data);
+       res.status(200).json(data)
     } catch (error) {
       res.status(500).json(error)
     }
@@ -143,4 +155,10 @@ export const addVarient=async(req,res)=>{
   } catch (error) {
     res.status(500).json(error)
   }
+}
+
+
+export const filtering = async (req,res)=>{
+  console.log("haii");
+  
 }
