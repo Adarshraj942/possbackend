@@ -1,24 +1,33 @@
 import OrderModel from "../Models/OrderModel.js";
-
+import UserModel from "../Models/userModel.js";
 import nodemailer from "nodemailer"
 
 export const create=async(req,res)=>{
     try {
         console.log("haiii");  
        let newOrder=OrderModel(req.body)
+
        const Orders=await newOrder.save()
+       const {userId}=req.body
+       const address={
+        address1:req.body.deliveryAddress.address1,
+        city:req.body.deliveryAddress.city,
+        state:req.body.deliveryAddress.state,
+        post:req.body.deliveryAddress.post
+       }
+       await UserModel.findByIdAndUpdate({_id:userId},{ $addToSet:{address:address}},{new:true})
        var Transport=nodemailer.createTransport({
         service:"Gmail",
         auth:{
-          user:"vorpstechnologies@gmail.com",
-          pass:"vkqdlnzbtdbmeawa"
+          user:"possindia21@gmail.com",
+          pass:"wykvjbreaetbjxvm"
         }
       })
       var mailOptions;
       let sender="PossIndia"
       mailOptions={
           from:sender,
-          to:"vorpstechnologies@gmail.com",
+          to:"possindia21@gmail.com",
 
           subject:`ORDER PLACED fROM ${Orders.deliveryAddress.firstName} ${Orders.deliveryAddress.lastName}`,
           text:`
@@ -56,19 +65,22 @@ export const create=async(req,res)=>{
 }
 
 
-export const edit=async(req,res)=>{
-    try {
-        
-    } catch (error) {
-        
-    }
+export const getOne=async(req,res)=>{
+  try{
+    const id =req.params.id
+const data=await OrderModel.findOne({_id:id}) 
+res.status(200).json(data)
+} catch (error) {
+ res.status(500).json(error)
+}
 }
 
 
 export const all=async(req,res)=>{
     try {
         const {userId}=req.body
-      const orderlist =await OrderModel.find({userId:userId})
+      const orderlist1 =await OrderModel.find({userId:userId})
+      const orderlist=orderlist1.reverse()
       res.status(200).json({orderlist})
       } catch (error) {
         res.status(500).json(error)

@@ -7,7 +7,7 @@ export const adminLogin =async(req,res)=>{
   
     try {
        const admin=await AdminModel.findOne({username: username})
-       console.log(admin.password)
+      
        if(admin){
         const validity=await bcrypt.compare(password, admin.password)
 

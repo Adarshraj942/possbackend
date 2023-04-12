@@ -74,16 +74,40 @@ export const allProducts=async(req,res)=>{
     try {
       console.log(req.body);
       const {typeCatagoryy,petCategoryy}=req.body
-      console.log(typeCatagoryy);
+
+      const typeCatagoryy1=typeCatagoryy.toLowerCase()
+      const typeCatagoryy2=typeCatagoryy1 + "s"
+      const typeCatagoryy3=typeCatagoryy+"S"
+      let typeCatagoryy4;
+      if(typeCatagoryy=="MAT"){
+        typeCatagoryy4="BEDS"
+      }else{
+        typeCatagoryy4=""
+      }
+      console.log(typeCatagoryy ,typeCatagoryy1, typeCatagoryy2,typeCatagoryy3,typeCatagoryy4);
        const data=await productModel.aggregate([ {$match:{ typeCatagory: typeCatagoryy,petCategory:petCategoryy}} ])
+       const data1=await productModel.aggregate([ {$match:{ typeCatagory: typeCatagoryy1,petCategory:petCategoryy}} ])
+       const data2=await productModel.aggregate([ {$match:{ typeCatagory: typeCatagoryy2,petCategory:petCategoryy}} ])
+       const data3=await productModel.aggregate([ {$match:{ typeCatagory: typeCatagoryy3,petCategory:petCategoryy}} ])
+       const dat4=await productModel.aggregate([ {$match:{ typeCatagory: typeCatagoryy4,petCategory:petCategoryy}} ])
       
       //  const zeta=data.filter((e)=>{
       //   console.log(e.typeCatagory);
       //    //return e.typeCatagory===typeCatagoryy 
          
       //  })
-   console.log(data);
-       res.status(200).json(data)
+
+      console.log("heiii",data.length,data1.length,data2.length,data3.length,dat4.length);
+      
+  //  console.log(data);
+  const array=data.concat(data1);
+          
+   const array2= array.concat(data2)
+   const array3= array2.concat(data3)
+     const array4= array3.concat(dat4)
+
+             console.log(array4.length);
+       res.status(200).json(array4)
     } catch (error) {
       res.status(500).json(error)
     }

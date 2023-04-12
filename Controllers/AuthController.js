@@ -29,8 +29,8 @@ export const registerUser=async (req,res)=>{
     var Transport=nodemailer.createTransport({
       service:"Gmail",
       auth:{
-        user:"vorpstechnologies@gmail.com",
-        pass:"vkqdlnzbtdbmeawa"
+        user:"possindia21@gmail.com",
+        pass:"wykvjbreaetbjxvm"
       }
     })
 

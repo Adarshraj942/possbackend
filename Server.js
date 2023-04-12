@@ -16,7 +16,9 @@ import BannerRoute from "./Routes/BannerRoute.js"
 import OrderRoute from "./Routes/OrderRoute.js"
 import PaymentRoute from "./Routes/PaymentRoute.js"
 import ShippingRoute from "./Routes/shippingRoute.js"
-
+import ContactRoute from "./Routes/contactRoute.js"
+import BlogRoute from "./Routes/BlogRoute.js"
+import AdminRoute from "./Routes/AdminRoute.js"
 const app=express();
 
 app.use(express.static("public"))
@@ -49,6 +51,10 @@ app.get("/test",(req,res)=>{
     app.use('/upload',UploadRoute)
     app.use('/booking',BookingRoute)
     app.use('/shipping',ShippingRoute)
+
+    app.use('/contact',ContactRoute)
+    app.use('/blog',BlogRoute)
+    app.use("/admin",AdminRoute)
 
 
 

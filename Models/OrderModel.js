@@ -6,6 +6,12 @@ const OrderSchema=mongoose.Schema(
             type:String,
             required:true,
         },
+        name:{
+            type:String,
+        },
+        uploadImages:{
+            type:String,
+        },
         productId:{
             type:String,
             

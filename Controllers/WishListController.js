@@ -18,14 +18,17 @@ export const getWishlist=async(req,res)=>{
 
 
 export const addToWishlist=async(req,res)=>{
-    console.log("haiii");
+    console.log("haiii" ,req.body);
     try {
      const {userId}=req.body
      const wishlist =await WishlistModel.findOne({ownerId:userId})
      if(wishlist){
       let pro={
         product:req.body.productId,
-        quantity:req.body.quantity
+        quantity:req.body.quantity,
+        name:req.body.name,
+        uploadImages:req.body.uploadImages,
+        price:req.body.price
       }
     const cart =await WishlistModel.findOneAndUpdate({ownerId:userId},{ $push:{products:pro}},{new:true})
           
@@ -34,7 +37,10 @@ export const addToWishlist=async(req,res)=>{
       const newWishlist =WishlistModel({ownerId:userId})
       let pro={
         product:req.body.productId,
-        quantity:req.body.quantity
+        quantity:req.body.quantity,
+        name:req.body.name,
+        uploadImages:req.body.uploadImages,
+        price:req.body.price
       }
       newWishlist.products.push(pro)
 

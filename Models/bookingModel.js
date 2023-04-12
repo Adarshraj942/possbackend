@@ -1,6 +1,27 @@
 import mongoose from "mongoose";
 const BookingSchema=mongoose.Schema({
-    username:{
+    firstName:{
+        type:String
+    },
+    lastName:{
+        type:String
+    },
+    mobile:{
+        type:String
+    },
+    city:{
+        type:String
+    },
+    state:{
+        type:String
+    },
+    bookingType:{
+        type:String
+    },
+    Daddress:{
+        type:String
+    },
+    zip:{
         type:String
     },
     time:{
@@ -14,6 +35,6 @@ const BookingSchema=mongoose.Schema({
     }
 })
 
-const BookingModel=mongoose.model("Admin",BookingSchema)
+const BookingModel=mongoose.model("Bookings",BookingSchema)
 
 export default BookingModel

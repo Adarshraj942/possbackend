@@ -8,6 +8,6 @@ const AdminSchema=mongoose.Schema({
     }
 })
 
-const AdminModel=mongoose.model("Admin",AdminSchema)
+const AdminModel=mongoose.model("Admins",AdminSchema)
 
 export default AdminModel

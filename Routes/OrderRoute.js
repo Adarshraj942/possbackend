@@ -1,11 +1,11 @@
 import express from  "express"
-import { all,  create, edit } from "../Controllers/OrderController.js";
+import { all,  create, getOne} from "../Controllers/OrderController.js";
 
 const router =express.Router();
 
 
 router.post("/create",create)
-router.post("/edit",edit)
+router.get("/getone/:id",getOne)
 // router.post("/cancel",cancel)
 router.post("/all",all)
 

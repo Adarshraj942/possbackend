@@ -30,6 +30,9 @@ const UserSchema=mongoose.Schema(
         mobile:{
           type:String
         },
+        address:{
+          type:Array
+        },
         
         profilePicture:String,
       

@@ -9,7 +9,7 @@ const WishlistSchema=mongoose.Schema(
         products:{
             type:Array,
             
-        },
+        }
 
     },
     {timestamps:true}
