@@ -1,4 +1,4 @@
-import AdminModel from "../Models/AdminMOdel.js"
+import AdminModel from "../Models/AdminModel.js"
  import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 export const adminLogin =async(req,res)=>{
