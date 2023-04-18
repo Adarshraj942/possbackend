@@ -35,14 +35,25 @@ export const addBulkProduct=async(req,res)=>{
     res.status(500).json(error)
   }
 }
+export const editfield=async(req,res)=>{
+  try {
+     
+     const data=await productModel.updateMany({typeCatagory:"food"},{typeCatagory:"FOOD" })
 
+    
+     res.status(200).json({data}) 
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
 export const editProduct=async(req,res)=>{
     try {
         console.log("haiii");
-        const id=req.params.id;
-        const {data}=req.body;  
-        
        
+        const data=req.body;  
+        console.log(data);
+        const id= data._id
+       console.log(id);
     
     
         if(id ){
@@ -132,9 +143,10 @@ export const getProduct=async(req,res)=>{
 
 export const deleteProduct=async(req,res)=>{
     try {
-        const productId=req.params.productId
-         await productModel.deleteOne({productId})
-         res.status(200).json("deleted successfully")
+        const productId=req.params.id
+         const data=await productModel.deleteOne({productId})
+    console.log(data,productId);
+         res.status(200).json(data)
     } catch (error) {
       res.status(500).json(error)
     }
@@ -183,6 +195,98 @@ export const addVarient=async(req,res)=>{
 
 
 export const filtering = async (req,res)=>{
-  console.log("haii");
+  try {
+
+    console.log("haiiiii");
+     const data=await productModel.find()
+     const beta=data.reverse()
   
+     res.status(200).json(beta)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+  
+}
+
+
+
+export const filterByPetCategory=async(req,res)=>{
+  try {
+    const {petCategory}=req.body
+    const data=await productModel.find({petCategory:petCategory})
+    res.status(200).json(data.reverse())
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+export const filterByTypeCategory=async(req,res)=>{
+  try {
+    const {typeCatagory}=req.body
+    const data=await productModel.find({typeCatagory:typeCatagory})
+    res.status(200).json(data.reverse())
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+
+export const filterByBrandCategory=async(req,res)=>{
+  try {
+    const {brandCategory}=req.body
+    const data=await productModel.find({brandCategory:brandCategory})
+    res.status(200).json(data.reverse())
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+export const filterByPriceRange=async(req,res)=>{
+  try {
+    const {min,max}=req.body
+    const data= await productModel.find({price: {$gt:min, $lt:max}})
+    res.status(200).json(data)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+export const filterByMinToMax=async(req,res)=>{
+  try {
+    const {minTomax}=req.body
+     const data =await productModel.aggregate([
+      { "$group": {
+         "_id": null,
+         "MaximumValue": { "$max": "$price" },
+         "MinimumValue": { "$min": "$price" }
+      }}
+   ])
+
+   console.log(data);
+
+   if(minTomax){
+    const beta=await productModel.find({price: {$gt:data.MinimumValue, $lt:data.MaximumValue}})
+     res.status(200).json(beta)
+   }else{
+    const beta=await productModel.find({price: {$gt:data.MaximumValue, $lt:data.MinimumValue}})
+    res.status(200).json(beta)
+   }
+
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+
+
+export const search=async(req,res)=>{
+  try {
+    const {search}=req.body
+    const pattern=`/${search}/`
+    console.log(pattern);
+    const data=await productModel.find({ "name" : { $regex: search, $options: 'i' } })
+    res.status(200).json(data)
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }

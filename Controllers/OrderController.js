@@ -86,3 +86,82 @@ export const all=async(req,res)=>{
         res.status(500).json(error)
       }
 }
+
+
+
+export const adminOrders=async(req,res)=>{
+  try {
+     
+    const orderlist1 =await OrderModel.find(
+      
+      {OrderStatus:{$nin:["CANCELLED", "RETURN", "ACCEPTRETURN"]
+        
+        }}
+      
+      )
+    const orderlist=orderlist1.reverse()
+    res.status(200).json({orderlist})
+    } catch (error) {
+      res.status(500).json(error)
+    }
+}
+
+export const adminreturn=async(req,res)=>{
+  try{
+  const orderlist1 =await OrderModel.find({OrderStatus:{$nin:["ORDERED","DISPATCHED","DELIVERED","CANCELLED"]}})
+  const orderlist=orderlist1.reverse()
+  res.status(200).json({orderlist})
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+export const cancel=async(req,res)=>{
+  try {
+    const {orderID}=req.body
+  console.log("orderId",orderID);
+    const data=await OrderModel.findByIdAndUpdate(orderID,{  OrderStatus:"CANCELLED"},{new:true})
+  
+    res.status(200).json(data)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+export const returnReq=async(req,res)=>{
+  try {
+    const {orderID}=req.body
+  console.log("orderId",orderID);
+    const data=await OrderModel.findByIdAndUpdate(orderID,{  OrderStatus:"RETURN"},{new:true})
+  
+    res.status(200).json(data)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+export const cancelledOrders=async(req,res)=>{
+  try {
+     
+    const orderlist1 =await OrderModel.find({OrderStatus:"CANCELLED"})
+    const orderlist=orderlist1.reverse()
+    res.status(200).json({orderlist})
+    } catch (error) {
+      res.status(500).json(error)
+    }
+}
+
+
+
+
+ export const changestatus=async(req,res)=>{
+    try {
+      const {status,orderID}=req.body
+      console.log(status);
+      const data=await OrderModel.findByIdAndUpdate(orderID,{  OrderStatus:status},{new:true})
+  
+      res.status(200).json(data)
+      
+    } catch (error) {
+      res.status(500).json(error)
+    }
+}

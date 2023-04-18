@@ -33,7 +33,11 @@ const OrderSchema=mongoose.Schema(
         },
         OrderStatus:{
             type:String
+        },
+        quantity:{
+            type:Number
         }
+        
 
     },
     {timestamps:true}

@@ -6,7 +6,7 @@ const ProductSchema=mongoose.Schema(
             type:String,
            
         },
-        typeCategory:{
+        typeCatagory:{
             type:String
         },
         brandCategory:{
@@ -34,26 +34,28 @@ const ProductSchema=mongoose.Schema(
             default:0
         },
        
-        sku:{
+        skuId:{
             type:String
         }
         ,
         
 
-        varientType:{
+        variantType:{
           type:String
         },
 
         petCategory:{
-           type:Array
+           type:String
         },
-
-        
-        
-        image1:String,
-        image2:String,
-        image3:String,
-        image4:String,
+        ageCategory:{
+          type:String
+        },
+        coverImage:{
+            type:String
+        },
+        uploadImages:{
+            type:String
+        },
        
 
 
