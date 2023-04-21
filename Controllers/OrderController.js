@@ -142,8 +142,8 @@ export const returnReq=async(req,res)=>{
 export const cancelledOrders=async(req,res)=>{
   try {
      
-    const orderlist1 =await OrderModel.find({OrderStatus:"CANCELLED"})
-    const orderlist=orderlist1.reverse()
+    const orderlist2 =await OrderModel.find({OrderStatus:"CANCELLED"})
+    const orderlist=orderlist2.reverse()
     res.status(200).json({orderlist})
     } catch (error) {
       res.status(500).json(error)
